@@ -1,5 +1,5 @@
 # i-MSCP Listener::Postfix::Tuning listener file
-# Copyright (C) 2015-2017 Laurent Declercq <l.declercq@nuxwin.com>
+# Copyright (C) 2010-2019 Laurent Declercq <l.declercq@nuxwin.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,11 +35,11 @@ use Servers::mta;
 # Hash where each pair of key/value correspond to a postfix parameter
 # Please replace the entries below by your own entries
 my %mainCfParameters = (
-    'inet_protocols'     => 'ipv4, ipv6',
-    'inet_interfaces'    => '127.0.0.1, 10.195.50.97, [fe80::f816:3eff:fe62:e89d]',
-    'smtp_bind_address'  => '10.195.50.97',
+    'inet_protocols'     => 'all',
+    'inet_interfaces'    => 'all',
+    'smtp_bind_address'  => '',
     'smtp_bind_address6' => '',
-    'relayhost'          => '10.195.50.97:125'
+    'relayhost'          => 'smtp.relay-domain.ltd'
 );
 
 ## Postfix master.cf (see http://www.postfix.org/master.5.html)
@@ -53,8 +53,7 @@ my @masterCfParameters = (
 ## Please, don't edit anything below this line unless you known what you're doing
 #
 
-my $em = iMSCP::EventManager->getInstance();
-$em->register(
+iMSCP::EventManager->getInstance()->register(
     'afterMtaBuildConf',
     sub {
         my %params = ();
@@ -71,9 +70,11 @@ $em->register(
         }
 
         0;
-    }
+    },
+    -99
 );
-$em->register(
+
+iMSCP::EventManager->getInstance()->register(
     'afterMtaBuildMasterCfFile',
     sub {
         my $cfgTpl = shift;
