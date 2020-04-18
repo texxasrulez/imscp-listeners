@@ -47,24 +47,24 @@ use iMSCP::EventManager;
 my %configOptions = (
     # Any PHP configuration option added here will apply globally (to all domains).
     '*'             => {
-        'open_basedir' => '{HOME_DIR}/:{PEAR_DIR}/:/dev/random:/dev/urandom:/usr/bin/gpg:/usr/bin/gpg2:/usr/bin/gpg-agent:/proc:/sys',
+        'open_basedir' => '{HOME_DIR}/:{PEAR_DIR}/:/dev/random:/dev/urandom:/usr/bin/gpg:/usr/bin/gpg2:/usr/bin/gpg-agent:/proc:/sys:/usr/bin/gpgconf:/usr/local/bin/gpgconf',
         'always_populate_raw_post_data' => '-1',
-        'upload_max_filesize' => '500M',
-        'max_execution_time' => '600',
-        'max_file_uploads' => '500',
-        'post_max_size' => '500M',
-        'memory_limit' => '500M'
+        'upload_max_filesize' => '128M',
+        'max_execution_time' => '60',
+        'max_file_uploads' => '80',
+        'post_max_size' => '10M',
+        'memory_limit' => '256M'
     },
 
     # Any PHP configuration added here will apply to domain1.tld only
-    'www.domain.ltd' => {
-        'open_basedir' => '{HOME_DIR}/:{PEAR_DIR}/:/dev/random:/dev/urandom:/usr/bin/gpg:/usr/bin/gpg2:/usr/bin/gpg-agent:/proc:/sys',
+    'domain.ltd' => {
+        'open_basedir' => '{HOME_DIR}/:{PEAR_DIR}/:/dev/random:/dev/urandom:/usr/bin/gpg:/usr/bin/gpg2:/usr/bin/gpg-agent:/proc:/sys:/usr/bin/gpgconf:/usr/local/bin/gpgconf',
         'always_populate_raw_post_data' => '-1',
         'upload_max_filesize' => '500M',
         'max_execution_time' => '600',
         'max_file_uploads' => '500',
         'post_max_size' => '500M',
-        'memory_limit' => '500M'
+        'memory_limit' => '1024M'
     }
 );
 
